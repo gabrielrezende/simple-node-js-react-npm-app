@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "nodenv"}
+    tools {nodejs "nodejs-server"}
     stages {
         stage('Code Quality Check via SonarQube') {
             steps {
@@ -20,7 +20,7 @@ pipeline {
    
         stage("Install Project Dependencies") {
             steps {
-                nodejs(nodeJSInstallationName: 'nodenv'){
+                nodejs(nodeJSInstallationName: 'nodejs-server'){
                     sh "npm install"
                 }
             }
