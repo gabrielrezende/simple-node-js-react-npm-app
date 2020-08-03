@@ -12,6 +12,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sonar": "sonar-scanner.bat -D'sonar.projectKey=myapp' -D'sonar.sources=.' -D'sonar.host.url=http://127.0.0.1:9000' -D'sonar.login=ad8bc10f4cb1a769d5385f409f425885f3dd0fd9'"
+    "sonar": "sonar-scanner"
   }
 }
