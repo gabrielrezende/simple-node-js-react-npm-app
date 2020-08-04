@@ -5,8 +5,14 @@ pipeline {
         stage('Code Quality Check via SonarQube') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQubeScanner';
-                    withSonarQubeEnv("sonarqube-container") {
+                    // def scannerHome = tool 'SonarQubeScanner';
+                    withSonarQubeEnv("SonarQubeScanner") {
+                        timeout(time: 1, unit:'HOURS'){
+                            def qg = waitForQualityGate()
+                            if (qg.status != 'OK'){
+                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                            }
+                        }
                         // sh "${tool("sonarqube-container")}/bin/sonar-scanner \
                         //     -Dsonar.projectKey=test-node-js \
                         //     -Dsonar.sources=. \
@@ -21,6 +27,8 @@ pipeline {
         stage("Install Project Dependencies") {
             steps {
                 nodejs(nodeJSInstallationName: 'nodejs-server'){
+                    sh "apk add nodejs"
+                    sh "echo $PATH"
                     sh "npm install"
                 }
             }
