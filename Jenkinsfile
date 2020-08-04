@@ -50,16 +50,17 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                        -Dsonar.projectKey=test-node-js \
-                        -Dsonar.sources=. \
-                        -Dsonar.css.node=. \
-                        -Dsonar.host.url=http://10.11.73.5:9000 \
-                        -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
+                    sh "echo ${scannerHome}"
+                    // sh "${scannerHome}/bin/sonar-scanner \
+                    //     -Dsonar.projectKey=test-node-js \
+                    //     -Dsonar.sources=. \
+                    //     -Dsonar.css.node=. \
+                    //     -Dsonar.host.url=http://10.11.73.5:9000 \
+                    //     -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
                 }
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
+                // timeout(time: 10, unit: 'MINUTES') {
+                //     waitForQualityGate abortPipeline: true
+                // }
             }
         }
         stage('Build') {
