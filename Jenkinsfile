@@ -44,26 +44,39 @@ pipeline {
         CI = 'true'
     }
     stages {
+        stage('Test') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Quality Gate status check'){
-            steps{
-                script{
-                    withSonarQubeEnv('sonarqubeserver'){
-                        timeout(time: 1, unit:'HOURS'){
-                            def qg = waitForQualityGate()
-                            if (qg.status != 'OK'){
-                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                            }
-                        }
-                    }
-                }
-            }
+        // stage('Quality Gate status check'){
+        //     steps{
+        //         script{
+        //             withSonarQubeEnv('sonarqubeserver'){
+        //                 timeout(time: 1, unit:'HOURS'){
+        //                     def qg = waitForQualityGate()
+        //                     if (qg.status != 'OK'){
+        //                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
 
-        }
+        // }
         // stage('Test') {
         //     steps {
         //         sh './jenkins/scripts/test.sh'
