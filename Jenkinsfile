@@ -2,33 +2,25 @@ pipeline {
     agent any
     tools {nodejs "nodejs-server"}
     stages {
-        // stage('Code Quality Check via SonarQube') {
-        //     steps {
-        //         script {
-        //             // def scannerHome = tool 'SonarQubeScanner';
-        //             withSonarQubeEnv("SonarQubeScanner") {
-        //                 timeout(time: 1, unit:'HOURS'){
-        //                     def qg = waitForQualityGate()
-        //                     if (qg.status != 'OK'){
-        //                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        //                     }
-        //                 }
-        //                 // sh "${tool("sonarqube-container")}/bin/sonar-scanner \
-        //                 //     -Dsonar.projectKey=test-node-js \
-        //                 //     -Dsonar.sources=. \
-        //                 //     -Dsonar.css.node=. \
-        //                 //     -Dsonar.host.url=http://127.0.0.1:9000 \
-        //                 //     -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
-        //             }
-        //         }
-        //    }
-        // }
+        stage('Code Quality Check via SonarQube') {
+            steps {
+                script {
+                    // def scannerHome = tool 'sonarqube';
+                    withSonarQubeEnv("sonarqube-container") {
+                        sh "${tool("sonarqube")}/bin/sonar-scanner \
+                            -Dsonar.projectKey=test-node-js \
+                            -Dsonar.sources=. \
+                            -Dsonar.css.node=. \
+                            -Dsonar.host.url=http://127.0.0.1:9000 \
+                            -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
+                    }
+                }
+           }
+        }
    
         stage("Install Project Dependencies") {
             steps {
                 nodejs(nodeJSInstallationName: 'nodejs-server'){
-                    sh "apk add nodejs"
-                    sh "echo $PATH"
                     sh "npm install"
                 }
             }
