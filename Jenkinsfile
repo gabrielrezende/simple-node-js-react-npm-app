@@ -111,5 +111,4 @@ pipeline {
         //         sh './jenkins/scripts/kill.sh'
         //     }
         // }
-    }
 }
