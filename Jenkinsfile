@@ -46,10 +46,10 @@ pipeline {
     stages {
         stage('Test') {
             environment {
-                scannerHome = tool 'SonarQubeScanner'
+                scannerHome = tool 'sonarqubescanner'
             }
             steps {
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('sonarqubeserver') {
                     sh "echo ${scannerHome}"
                     // sh "${scannerHome}/bin/sonar-scanner \
                     //     -Dsonar.projectKey=test-node-js \
