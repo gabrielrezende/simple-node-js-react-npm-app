@@ -7,7 +7,7 @@ pipeline {
                 script {
                     // def scannerHome = tool 'sonarqube';
                     withSonarQubeEnv("sonarqube-container") {
-                        sh "${tool("sonarqube-container")}/bin/sonar-scanner \
+                        sh "/var/jenkins_home/sonar-scanner-cli-4.2.0.1873-linux/bin/sonar-scanner \
                             -Dsonar.projectKey=test-node-js \
                             -Dsonar.sources=. \
                             -Dsonar.css.node=. \
@@ -17,6 +17,9 @@ pipeline {
                 }
            }
         }
+        // stage('SonarQube Analysis') {
+        //     sh "/home/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonarqubescanner/bin/sonar-scanner -Dsonar.host.url=http://192.168.0.14:9000 -Dsonar.projectName=meanstackapp -Dsonar.projectVersion=1.0 -Dsonar.projectKey=meanstack:app -Dsonar.sources=. -Dsonar.projectBaseDir=/home/jenkins/workspace/sonarqube_test_pipeline"
+        // }
    
         stage("Install Project Dependencies") {
             steps {
