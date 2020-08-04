@@ -52,7 +52,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh "echo ${scannerHome}"
-                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner"
+                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner "
                     // sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
                     //     -Dsonar.projectKey=simple-api-test \
                     //     -Dsonar.sources=. \
@@ -71,11 +71,19 @@ pipeline {
                 // }
             }
         }
-        stage('Build') {
+
+        stage("Install Dependencies") {
             steps {
-                sh 'npm install'
+                sh "npm install"
             }
         }
+
+        stage("unit Test") {
+            steps {
+                sh "npm test"
+            }
+        }
+    }
         // stage('Quality Gate status check'){
         //     steps{
         //         script{
