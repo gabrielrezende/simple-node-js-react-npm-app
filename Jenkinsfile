@@ -52,12 +52,13 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh "echo ${scannerHome}"
-                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
-                        -Dsonar.projectKey=simple-api-test \
-                        -Dsonar.sources=. \
-                        -Dsonar.css.node=. \
-                        -Dsonar.host.url=http://10.11.73.5:9000 \
-                        -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
+                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner"
+                    // sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
+                    //     -Dsonar.projectKey=simple-api-test \
+                    //     -Dsonar.sources=. \
+                    //     -Dsonar.css.node=. \
+                    //     -Dsonar.host.url=http://10.11.73.5:9000 \
+                    //     -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
                 }
                 // timeout(time: 10, unit: 'MINUTES') {
                 //     waitForQualityGate abortPipeline: true
