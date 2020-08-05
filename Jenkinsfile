@@ -54,7 +54,6 @@ pipeline {
                     sh "pwd"
                     sh "echo ${scannerHome}"
                     sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
-                        -Dsonar.projectKey=simple-api-teste \
                         -Dsonar.host.url=http://10.11.73.5:9000 \
                         -Dsonar.projectKey=simple-api-teste \
                         -Dsonar.projectName=SimpleAPI \
