@@ -1,6 +1,9 @@
 pipeline {
     agent any
     tools {nodejs "nodejs-server"}
+    environment {
+        CI = 'true'
+    }
     
     stages {
 //         stage('Code Quality Check via SonarQube') {
