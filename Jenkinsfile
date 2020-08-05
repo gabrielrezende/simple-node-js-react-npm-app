@@ -53,6 +53,7 @@ pipeline {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh "pwd"
                     sh "echo ${scannerHome}"
+                    sh "${tool("sonarqubescanner")}"
                     sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
                         -Dsonar.host.url=http://10.11.73.5:9000 \
                         -Dsonar.projectKey=simple-api-teste \
