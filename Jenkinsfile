@@ -44,7 +44,7 @@ pipeline {
         stage("Testes unitários") {
             steps {
                 nodejs(nodeJSInstallationName: 'nodejs-server'){
-                    sh "npm teste"
+                    sh "npm test"
                 }
             }
         }
