@@ -53,23 +53,19 @@ pipeline {
                 withSonarQubeEnv('sonarqubeserver') {
                     sh "pwd"
                     sh "echo ${scannerHome}"
-                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner "
-                    // sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
-                    //     -Dsonar.projectKey=simple-api-test \
-                    //     -Dsonar.sources=. \
-                    //     -Dsonar.css.node=. \
-                    //     -Dsonar.host.url=http://10.11.73.5:9000 \
-                    //     -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095"
+                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
+                        -Dsonar.projectKey=simple-api-teste \
+                        -Dsonar.host.url=http://10.11.73.5:9000 \
+                        -Dsonar.projectKey=simple-api-teste \
+                        -Dsonar.projectName=SimpleAPI \
+                        -Dsonar.projectVersion=1.0 \
+                        -Dsonar.sources=src \
+                        -Dsonar.exclusions=node_modules/**, coverage/**, public/**, build/**, **/__tests__/** \
+                        -Dsonar.sourceEncoding=UTF-8 \
+                        -Dsonar.javascript.lcov.reportPaths=__tests__/coverage/lcov.info \
+                        -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095 
+                    "
                 }
-                // timeout(time: 10, unit: 'MINUTES') {
-                //     waitForQualityGate abortPipeline: true
-                // }
-                // timeout(time: 1, unit:'HOURS'){
-                //     def qg = waitForQualityGate()
-                //     if (qg.status != 'OK'){
-                //         error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                //     }
-                // }
             }
         }
 
@@ -79,7 +75,7 @@ pipeline {
             }
         }
 
-        stage("unit Test") {
+        stage("Testes unitários") {
             steps {
                 sh "npm test"
             }
