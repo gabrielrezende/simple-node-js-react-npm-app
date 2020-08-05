@@ -62,7 +62,7 @@ pipeline {
                         -Dsonar.exclusions=node_modules/**, coverage/**, public/**, build/**, **/__tests__/** \
                         -Dsonar.sourceEncoding=UTF-8 \
                         -Dsonar.javascript.lcov.reportPaths=__tests__/coverage/lcov.info \
-                        -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095 
+                        -Dsonar.login=226b26692118a8dd4fe8dd7c2d908307c40c6095 \
                     "
                 }
             }
