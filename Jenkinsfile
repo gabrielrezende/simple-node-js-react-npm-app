@@ -10,7 +10,9 @@ pipeline {
                 script {
                     def scannerHome = tool 'sonarqubescanner';
                     sh "echo ${scannerHome}"
-                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner --help"
+                    sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
+                        -h \
+                    "
                 }
             }
         }
