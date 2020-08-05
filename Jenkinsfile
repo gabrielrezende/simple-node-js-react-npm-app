@@ -51,7 +51,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonarqubeserver') {
-                    sh "pwd"
+                    sh "ls"
                     sh "echo ${scannerHome}"
                     sh "${tool("sonarqubescanner")}"
                     sh "${tool("sonarqubescanner")}/bin/sonar-scanner \
